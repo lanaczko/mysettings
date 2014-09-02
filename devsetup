@@ -1,0 +1,275 @@
+#set -x
+
+printconfig()
+{
+	echo
+	echo "Current settings:"
+    echo -n "Android version:        "
+    echo -e "\E[31m$AND_VER" 
+    tput sgr0
+	echo "Android src:		$AND_SRC"
+	echo "Android product:	$TARGET_PRODUCT"
+	echo "Android build type:	$AND_BUILD_TYPE"
+	echo "P4 Workspace:		$ufosrc"
+	echo "CCACHE_DIR:		$CCACHE_DIR"
+	echo
+}
+
+# update to match your config
+AND_PROD=
+AND_BUILD_TYPE=
+AND_SRC=
+AND_VER=
+
+declare -a configs
+
+index=0
+numconfigs=0
+
+for f in `ls /mnt/ssd*/*/.devsetup 2>/dev/null`
+do
+    MY_CCACHE=
+    . $f
+
+#    printconfig
+
+    ((numconfigs++))
+    configs[$index]=$AND_VER
+    ((index++))
+    configs[$index]=`dirname $f`
+    ((index++))
+    configs[$index]=$AND_BUILD_TYPE
+    ((index++))
+    configs[$index]=$MY_CCACHE
+    ((index++))
+done
+
+echo
+echo -e "\E[36mFound $numconfigs android configurations\n"
+tput sgr0
+
+adbc81()
+{
+    echo "172.28.81.$1" > ~/.adb_ip
+    adbc
+}
+
+apushsl()
+{
+    adb push $1 /system/lib/$2
+}
+
+ff()
+{
+	find . -iname $@
+}
+
+rg()
+{
+	grep -RiHnI "$@" * 2>/dev/null
+}
+
+rgrep()
+{
+    rg "$@"
+}
+
+rwg()
+{
+	grep -RwiHnI $@ *
+}
+
+rwgrep()
+{
+    rwg "$@"
+}
+
+load_and()
+{
+	echo
+	echo -e '\E[33mExecute this:'
+	echo
+	echo -e '\E[32mcd $ANDROID_SRC'
+	echo -e '\E[32m. build/envsetup.sh'
+	tput sgr0
+	echo
+
+	return 0
+}
+
+d()
+{
+	#set -x
+
+    if [ "$numconfigs" -gt 0 ]; then
+        AND_PROD=dmd_has
+        while [ 1 ]; do
+            echo -e '\E[35m\t(h)sb'
+            echo -e '\E[35m\t(c)herryview'
+            echo -e '\E[35m\t(y)bayleybay'
+            echo -e '\E[35m\t(r)bdw_rvp'
+            echo -e '\E[35m\t(m)byt_m_crb'
+            echo -e '\E[35m\t(l)baylake'
+            echo -e '\E[35m\t(x)bxt_has'
+            echo -e '\E[35m\t(d)md_has'
+            echo -e '\E[35m\t(a)mini_x86'
+            echo -ne "\E[31mWhich target use? [$AND_PROD] "
+            tput sgr0
+            read ANS
+            [ -z $ANS ] && break
+            if [ x$ANS = "xc" -o x$ANS = "xr" -o x$ANS = "xl" -o x$ANS = "xb" -o x$ANS = "xf" -o x$ANS = "xy" -o x$ANS = "xm" -o x$ANS = "xh" -o x$ANS = "xx" -o x$ANS = "xa" ]; then
+                AND_PROD=$ANS
+                break
+            fi
+        done
+        echo
+
+        case $AND_PROD in
+            c*) AND_PROD=cherryview
+                ;;
+            h*) AND_PROD=hsb
+                ;;
+            b*) AND_PROD=bdw
+                ;;
+            r*) AND_PROD=bdw_rvp
+                ;;
+            f*) AND_PROD=core_ufo
+                ;;
+            y*) AND_PROD=bayleybay
+                ;;
+            m*) AND_PROD=byt_m_crb
+                ;;
+            x*) AND_PROD=bxt_has
+                LUNCH_AND_PROD=bxt_has-eng
+                ;;
+            d*) AND_PROD=dmd_has
+                LUNCH_AND_PROD=dmd_has-eng
+                ;;
+            l*) AND_PROD=baylake
+                ;;
+            a*) AND_PROD=mini_x86
+                LUNCH_AND_PROD=mini_x86-userdebug
+                ;;
+        esac
+    fi
+
+    index=0
+    indexarray=0
+    while [ "$index" -lt "$numconfigs" ]; do
+        ((index++))
+        AV=${configs[$indexarray]}
+        ((indexarray++))
+        echo -ne "$index) \E[32m${configs[$indexarray]}"
+        tput sgr0
+        ((indexarray++))
+        echo " | $AV"
+        ((indexarray++))
+        ((indexarray++))
+    done
+    while [ 1 ]; do
+        read -p "select [6]> " ANS
+        if [ -z $ANS ]; then
+            ANS=6
+        fi
+        if [ -n $ANS -a $ANS -ge 1 -a $ANS -le $numconfigs ]; then
+            break
+        fi
+        if [ x$ANS = "xq" ]; then
+            EXIT="no"
+        fi
+    done
+    index=0
+    indexarray=0
+    ((ANS--))
+    while [ "$index" -lt "$ANS" ]; do
+        ((index++))
+        ((indexarray++))
+        ((indexarray++))
+        ((indexarray++))
+        ((indexarray++))
+    done
+    AND_VER=${configs[$indexarray]}
+    ((indexarray++))
+    AND_SRC=${configs[$indexarray]}
+    ((indexarray++))
+    AND_BUILD_TYPE=${configs[$indexarray]}
+    ((indexarray++))
+    MY_CCACHE=${configs[$indexarray]}
+    EXIT="yes"
+
+    if [ "x$EXIT" = "xyes" ]; then
+        export ANDROID_SRC=$AND_SRC
+        export TARGET_PRODUCT=$AND_PROD
+        export LUNCH_TARGET_PRODUCT=$LUNCH_AND_PROD
+        export TARGET_BUILD_TYPE=$AND_BUILD_TYPE
+        export ANDROID_PRODUCT_OUT=$ANDROID_SRC/out/target/product/$TARGET_PRODUCT/
+        export ANDROID_DEBUG_PRODUCT_OUT=$ANDROID_SRC/out/debug/target/product/$TARGET_PRODUCT/
+    fi
+
+    if [ -n $MY_CCACHE ]; then
+        export USE_CCACHE=1
+        export CCACHE_DIR=$MY_CCACHE
+    fi
+	export PATH=$PATH:$ANDROID_SRC:$ANDROID_SRC/out/host/linux-x86/bin/
+	export PATH=$PATH:/opt/repos/scripts
+    export LD_LIBRARY_PATH=$ANDROID_SRC/out/debug/target/product/ufo/symbols/system/lib:$ANDROID_SRC/out/debug/target/product/ufo/symbols/system/lib/hw:$ANDROID_SRC/out/target/product/ufo/symbols/system/lib:$ANDROID_SRC/out/target/product/ufo/symbols/system/lib/hw
+
+    ufosrc=
+    PS3="Select UFO workspace: "
+    select ans in ufo_1533 ufo_devel ufo_igc_dev ufo_igc_mainline ; do
+        ufosrc=$ans
+        break
+    done
+
+    export P4CLIENT=$ufosrc
+
+    printconfig
+
+	#load_and
+}
+
+gdbclient_x86 () 
+{ 
+    local OUT_ROOT=$(get_abs_build_var PRODUCT_OUT);
+    local OUT_SYMBOLS=$(get_abs_build_var TARGET_OUT_UNSTRIPPED);
+    local OUT_SO_SYMBOLS=$(get_abs_build_var TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED);
+    local OUT_EXE_SYMBOLS=$(get_abs_build_var TARGET_OUT_EXECUTABLES_UNSTRIPPED);
+    local PREBUILTS=$(get_abs_build_var ANDROID_PREBUILTS);
+    if [ "$OUT_ROOT" -a "$PREBUILTS" ]; then
+        local EXE="$1";
+        if [ "$EXE" ]; then
+            EXE=$1;
+        else
+            EXE="app_process";
+        fi;
+        local PORT="$2";
+        if [ "$PORT" ]; then
+            PORT=$2;
+        else
+            PORT=":5039";
+        fi;
+        local PID;
+        local PROG="$3";
+        if [ "$PROG" ]; then
+            PID=`pid $3`;
+            adb forward "tcp$PORT" "tcp$PORT";
+            adb shell gdbserver $PORT --attach $PID & sleep 2;
+        else
+            echo "";
+            echo "If you haven't done so already, do this first on the device:";
+            echo "    gdbserver $PORT /system/bin/$EXE";
+            echo " or";
+            echo "    gdbserver $PORT --attach $PID";
+            echo "";
+        fi;
+        echo "set solib-absolute-prefix $OUT_SYMBOLS" >|"$OUT_ROOT/gdbclient.cmds";
+        echo "set solib-search-path $OUT_SO_SYMBOLS" >> "$OUT_ROOT/gdbclient.cmds";
+        echo "target remote $PORT" >> "$OUT_ROOT/gdbclient.cmds";
+        echo "" >> "$OUT_ROOT/gdbclient.cmds";
+        gdb -x "$OUT_ROOT/gdbclient.cmds" "$OUT_EXE_SYMBOLS/$EXE";
+    else
+        echo "Unable to determine build system output dir.";
+    fi
+}
+
+
