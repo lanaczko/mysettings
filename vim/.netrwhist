@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/user/lanaczko'
+let g:netrw_dirhist_2='/mnt/ssd/android-kk/.repo/local_manifests'
+let g:netrw_dirhist_3='/mnt/ssd2/android-jenkins/scripts/hardware/intel/ufo/Source/OpenCL/Runtime/android/headers'
+let g:netrw_dirhist_4='/opt/Perforce/ufo_devel/gfx_Development/mainline/Source/OpenGL/source/core/v2c'
+let g:netrw_dirhist_5='/opt/Perforce/ufo_devel/gfx_Development/mainline/Source/OpenGL/source/core/usc_adapter'
+let g:netrw_dirhist_6='/opt/Perforce/ufo_devel/gfx_Development/mainline/Source/USC'
+let g:netrw_dirhist_7='/opt/Perforce/ufo_devel/gfx_Development/mainline/Source/llvm/lib/CodeGen/AsmPrinter'
+let g:netrw_dirhist_8='/opt/repos/llvm-3.4/llvm-3.4/cmake/platforms'
+let g:netrw_dirhist_9='/mnt/ssd2/android-embargo/device/intel/mixins/graphics/ufo'
