@@ -21,16 +21,14 @@ alias adbs='adb shell'
 alias al='adb logcat'
 
 #UFO_SRC=/opt/Perforce/perforce01-igk.intel.com_3666/lanaczko_ufo_android/gfx_Development/mainline/
-if [ $P4CLIENT = "ufo_devel" ]; then
+if [ x$P4CLIENT = "xufo_devel" ]; then
     UFO_SRC=/opt/Perforce/$P4CLIENT/gfx_Development/mainline/
-elif [ $P4CLIENT = "ufo_igc_dev" ]; then
+elif [ x$P4CLIENT = "xufo_igc_dev" ]; then
     UFO_SRC=/opt/Perforce/$P4CLIENT/gfx_Development/
-elif [ $P4CLIENT = "ufo_igc_mainline" ]; then
+elif [ x$P4CLIENT = "xufo_igc_mainline" ]; then
     UFO_SRC=/opt/Perforce/$P4CLIENT/gfx_Development/mainline/
-elif [ $P4CLIENT = "ufo_1533" ]; then
+elif [ x$P4CLIENT = "xufo_1533" ]; then
     UFO_SRC=/opt/Perforce/$P4CLIENT/gfx_Development/
-else
-    echo "Unknown P4 workspace type. Fix it!!!"
 fi
 
 #android aliases
@@ -43,7 +41,14 @@ alias cdo='cd $ANDROID_PRODUCT_OUT'
 alias cddo='cd $ANDROID_DEBUG_PRODUCT_OUT'
 alias cdn='cd /nfs/site/proj;cd ufo'
 
-alias Install='sudo apt-get install'
+#simics aliases
+alias cdw='cd ~/simics_workspace'
+
+if `grep -q Ubuntu /etc/lsb-release`; then
+    alias Install='sudo apt-get install'
+else
+    alias Install='sudo yum install'
+fi
 
 alias csl="echo -e '\0033\0143'"
 alias ..='cd ..'

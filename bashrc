@@ -159,4 +159,4 @@ if [ -r ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-echo && fortune
+echo && if [ -x /usr/bin/fortune ];then  fortune; fi
