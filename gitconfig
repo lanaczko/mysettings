@@ -1,0 +1,66 @@
+[color]
+	ui = auto
+	status = auto
+	branch = auto
+[user]
+	name = Lukasz Anaczkowski
+	email = lukasz.anaczkowski@intel.com
+[review "https://vpg-git.iind.intel.com"]
+    username = lanaczko
+[review "ufo-gerrit.igk.intel.com:8080"]
+    username = lanaczko
+[review "android.intel.com:8080"]
+    username = lanaczko
+[review "aia-review.intel.com"]
+    username = lanaczko
+[merge]
+        tool = meld
+[core]
+        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
+        gitproxy="/home/lanaczko/bin/socks_gw" for git.kernel.org
+        gitproxy="/home/lanaczko/bin/socks_gw" for github.com
+        gitproxy="/home/lanaczko/bin/socks_gw" for people.freedesktop.org
+        gitproxy="/home/lanaczko/bin/socks_gw" for android-x86.git.sf.net
+        gitproxy="/home/lanaczko/bin/socks_gw" for otcgit.jf.intel.com
+        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
+        gitproxy="/home/lanaczko/bin/socks_gw" for git.cryptomilk.org
+#        gitproxy="/user/lanaczko/bin/socks_gw" for android.intel.com
+        gitproxy="/home/lanaczko/bin/socks_gw" for code.i3wm.org
+        gitproxy="/home/lanaczko/bin/socks_gw" for chromium.googlesource.com
+        gitproxy="/home/lanaczko/bin/socks_gw" for git.savannah.gnu.org
+	editor = vim
+#       gitproxy=default-proxy ; for all rest
+
+[sendemail]
+	smtpserver = smtp.intel.com
+
+#  insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
+
+
+[url "ssh://android.intel.com/"]
+      insteadOf=git://android.intel.com/
+
+[url "ssh://lanaczko@android-mirror-gk.devtools.intel.com:29418/"]
+#[url "ssh://lanaczko@repo-mirror.tm.intel.com:29418/"]
+#[url "ssh://lanaczko@gerrit-glb.tl.intel.com:29418/"]
+      insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
+      insteadOf=git://jfumg-gcrmirror.jf.intel.com/
+      insteadOf=git://android.intel.com/
+      insteadOf=ssh://mcg-devgcr-sc1.jf.intel.com/
+      insteadOf=git://mcg-devgcr-sc1.jf.intel.com/
+      insteadOf=ssh://android.intel.com:29418/
+      insteadOf=ssh://android.intel.com/
+      insteadOf=git://android-mirror.devtools.intel.com/
+      insteadOf=ssh://android-mirror.devtools.intel.com/
+      insteadOf=ssh://android-mirror.devtools.intel.com:29418/
+
+[url "ssh://android.intel.com:29418/"]
+      pushInsteadOf=ssh://android.intel.com/
+      pushInsteadOf=ssh://android.intel.com:29418/
+      pushInsteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
+      pushInsteadOf=ssh://jfumg-gcrmirror.jf.intel.com:29418/
+      pushInsteadOf=ssh://android-mirror.devtools.intel.com/
+      pushInsteadOf=ssh://android-mirror.devtools.intel.com:29418/
+
+[push]
+	default = simple
