@@ -59,31 +59,6 @@ apushsl()
     adb push $1 /system/lib/$2
 }
 
-ff()
-{
-	find . -iname $@
-}
-
-rg()
-{
-	grep -RiHnI "$@" * 2>/dev/null
-}
-
-rgrep()
-{
-    rg "$@"
-}
-
-rwg()
-{
-	grep -RwiHnI $@ *
-}
-
-rwgrep()
-{
-    rwg "$@"
-}
-
 load_and()
 {
 	echo

@@ -155,7 +155,7 @@ fi
 export P4PORT=perforce01-igk.intel.com:3666
 export P4CHARSET=utf8
 
-if [ -f ~/.bash_aliases ]; then
+if [ -r ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 

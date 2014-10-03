@@ -49,3 +49,28 @@ alias csl="echo -e '\0033\0143'"
 alias ..='cd ..'
 alias enable_alert='PS1="$PS1\a"'
 
+ff()
+{
+	find . -iname $@
+}
+
+rg()
+{
+	grep -RiHnI "$@" * 2>/dev/null
+}
+
+rgrep()
+{
+    rg "$@"
+}
+
+rwg()
+{
+	grep -RwiHnI $@ *
+}
+
+rwgrep()
+{
+    rwg "$@"
+}
+
