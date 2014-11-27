@@ -1,0 +1,7 @@
+#echo "[`date`] $0: host $1" > /tmp/socks_gw.log
+echo $1 |grep "\.intel\.com$" > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    connect $@
+else
+    connect -S proxy-socks.jf.intel.com:1080 $@
+fi

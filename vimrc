@@ -67,6 +67,7 @@ map <F4> :NERDTreeToggle<CR>
 " if filereadable("/opt/cscope/android3.1/cscope.out")
 "     cs add /opt/cscope/android3.1/cscope.out
 " endif
+set nocscopeverbose
 if filereadable("./cscope.out")
     cs add ./cscope.out
 else

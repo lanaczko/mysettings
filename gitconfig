@@ -16,20 +16,22 @@
 [merge]
         tool = meld
 [core]
-        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
-        gitproxy="/home/lanaczko/bin/socks_gw" for git.kernel.org
-        gitproxy="/home/lanaczko/bin/socks_gw" for github.com
-        gitproxy="/home/lanaczko/bin/socks_gw" for people.freedesktop.org
-        gitproxy="/home/lanaczko/bin/socks_gw" for android-x86.git.sf.net
-        gitproxy="/home/lanaczko/bin/socks_gw" for otcgit.jf.intel.com
-        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
-        gitproxy="/home/lanaczko/bin/socks_gw" for git.cryptomilk.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for git.kernel.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for github.com
+#        gitproxy="/home/lanaczko/bin/socks_gw" for people.freedesktop.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for android-x86.git.sf.net
+#        gitproxy="/home/lanaczko/bin/socks_gw" for otcgit.jf.intel.com
+#        gitproxy="/home/lanaczko/bin/socks_gw" for anongit.freedesktop.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for git.cryptomilk.org
 #        gitproxy="/user/lanaczko/bin/socks_gw" for android.intel.com
-        gitproxy="/home/lanaczko/bin/socks_gw" for code.i3wm.org
-        gitproxy="/home/lanaczko/bin/socks_gw" for chromium.googlesource.com
-        gitproxy="/home/lanaczko/bin/socks_gw" for git.savannah.gnu.org
-	editor = vim
-#       gitproxy=default-proxy ; for all rest
+#        gitproxy="/home/lanaczko/bin/socks_gw" for code.i3wm.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for chromium.googlesource.com
+#        gitproxy="/home/lanaczko/bin/socks_gw" for git.savannah.gnu.org
+#        gitproxy="/home/lanaczko/bin/socks_gw" for git.yoctoproject.org
+        editor = vim
+	gitproxy = socks-proxy
+#        gitproxy=default-proxy ; for all rest
 
 [sendemail]
 	smtpserver = smtp.intel.com
@@ -62,5 +64,9 @@
       pushInsteadOf=ssh://android-mirror.devtools.intel.com/
       pushInsteadOf=ssh://android-mirror.devtools.intel.com:29418/
 
-[push]
-	default = simple
+#[push]
+#	default = simple
+[http]
+	proxy = http://proxy-chain.intel.com:911
+[alias]
+	co = checkout
