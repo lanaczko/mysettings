@@ -1,3 +1,4 @@
+alias I='sudo zypper install'
 alias e='gvim'
 alias eb='exec bash'
 alias cscope='cscope -d'

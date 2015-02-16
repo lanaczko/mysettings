@@ -67,6 +67,7 @@ map <F4> :NERDTreeToggle<CR>
 " if filereadable("/opt/cscope/android3.1/cscope.out")
 "     cs add /opt/cscope/android3.1/cscope.out
 " endif
+set nocscopeverbose
 if filereadable("./cscope.out")
     cs add ./cscope.out
 else
@@ -132,8 +133,8 @@ if has("gui_running")
   if !exists('g:screen_size_by_vim_instance')
     let g:screen_size_by_vim_instance = 1
   endif
-"  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-"  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
 endif
 
 set guifont=Monospace\ 12
