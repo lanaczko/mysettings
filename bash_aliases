@@ -43,7 +43,7 @@ alias cddo='cd $ANDROID_DEBUG_PRODUCT_OUT'
 alias cdn='cd /nfs/site/proj;cd ufo'
 
 #simics aliases
-alias cdw='cd ~/simics_workspace'
+alias cdw='cd /home/lanaczko/simics_knllb'
 
 if `grep -q Ubuntu /etc/lsb-release`; then
     alias Install='sudo apt-get install'

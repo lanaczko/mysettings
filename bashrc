@@ -20,7 +20,8 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-CCACHE_SLOPPINESS=time_macros
+#CCACHE_SLOPPINESS=time_macros
+#CCACHE_DIR=/home/lanaczko/ccache
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -107,7 +108,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=~/bin:$PATH:/11.10/Android/android-sdk-linux_x86/tools/
+export PATH=~/repos/simics_scripts:~/bin:$PATH:/11.10/Android/android-sdk-linux_x86/tools/
 #export GIT_PROXY_COMMAND=~/bin/socks_gw
 export EDITOR=gvim
 
